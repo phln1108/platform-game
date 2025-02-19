@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7w83p68toar7"
-path="res://.godot/imported/Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.png-2ffe7be20ca8f8121061b52f6a9ca441.ctex"
+uid="uid://4vh7qvate274"
+path="res://.godot/imported/Loser Out (24x8).png-d62455c2d91c6e081c28a6771231e630.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/map/Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.png"
-dest_files=["res://.godot/imported/Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.png-2ffe7be20ca8f8121061b52f6a9ca441.ctex"]
+source_file="res://Assets/Sprites/13-Dialogue Boxes/Loser Out (24x8).png"
+dest_files=["res://.godot/imported/Loser Out (24x8).png-d62455c2d91c6e081c28a6771231e630.ctex"]
 
 [params]
 
