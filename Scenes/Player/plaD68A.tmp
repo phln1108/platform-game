@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://q6s5nqchhexa"]
+[gd_scene load_steps=45 format=3 uid="uid://q6s5nqchhexa"]
 
 [ext_resource type="Texture2D" uid="uid://cdtbnvypj8jps" path="res://Assets/dino/DinoSprites - doux.png" id="1_51pde"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_huxpf"]
@@ -148,9 +148,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8nlgj"]
-size = Vector2(16, 17)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j664w"]
 size = Vector2(16, 17)
 
@@ -226,21 +223,6 @@ transition_to = NodePath("../jump")
 true_conditions = Array[StringName]([&"can_jump", &"jump"])
 false_conditions = Array[StringName]([])
 
-[sub_resource type="Animation" id="Animation_idu8y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_rplfj"]
 resource_name = "idle"
 length = 0.8
@@ -271,6 +253,21 @@ tracks/1/keys = {
 "values": [0, 1, 2]
 }
 
+[sub_resource type="Animation" id="Animation_idu8y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_0ms84"]
 resource_name = "walk"
 step = 0.333
@@ -291,13 +288,8 @@ sprite_frames = SubResource("SpriteFrames_g25j2")
 animation = &"attack"
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_w50pa")]
-show_bar_health = false
 
 [node name="HitboxComponent" parent="." instance=ExtResource("4_3xl53")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_8nlgj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)

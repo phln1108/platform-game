@@ -380,10 +380,16 @@ texture = ExtResource("1_d4bgj")
 34:23/0 = 0
 35:23/0 = 0
 4:10/0 = 0
+4:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:10/0 = 0
+3:10/0/terrain_set = 0
+3:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_eg0ir"]
 physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "floor"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/2 = SubResource("TileSetAtlasSource_itiby")
 
 [node name="Map1" type="Node2D"]
@@ -391,7 +397,8 @@ sources/2 = SubResource("TileSetAtlasSource_itiby")
 [node name="level" type="Node2D" parent="."]
 
 [node name="ground" type="TileMapLayer" parent="level"]
-tile_map_data = PackedByteArray("AAAVABgAAgAGAAoAAAAWABgAAgADAAoAAAAXABgAAgAEAAoAAAAYABgAAgAGAAoAAAAZABgAAgAEAAoAAAAaABgAAgADAAoAAAAbABgAAgAGAAoAAAAcABgAAgAEAAoAAAAdABgAAgAGAAoAAAAeABgAAgADAAoAAAAfABgAAgAEAAoAAAAgABgAAgAGAAoAAAAhABgAAgAEAAoAAAAiABgAAgAFAAoAAAA=")
+position = Vector2(-24, 0)
+tile_map_data = PackedByteArray("AAAVABgAAgAEAAoAAAAWABgAAgAEAAoAAAAXABgAAgAEAAoAAAAYABgAAgAEAAoAAAAZABgAAgADAAoAAAAaABgAAgADAAoAAAAbABgAAgAEAAoAAAAcABgAAgAEAAoAAAAdABgAAgADAAoAAAAeABgAAgAEAAoAAAAfABgAAgAEAAoAAAAgABgAAgAEAAoAAAAhABgAAgAEAAoAAAAiABgAAgADAAoAAAAiABcAAgAEAAoAAAAjABcAAgAEAAoAAAAkABcAAgAEAAoAAAAlABcAAgAEAAoAAAAmABcAAgAEAAoAAAAnABcAAgAEAAoAAAAoABcAAgAEAAoAAAAoABUAAgAEAAoAAAAoABYAAgAEAAoAAAApABUAAgAEAAoAAAAqABUAAgAEAAoAAAArABUAAgAEAAoAAAA=")
 tile_set = SubResource("TileSet_eg0ir")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_lmm7s")]

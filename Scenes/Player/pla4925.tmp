@@ -1,32 +1,13 @@
-[gd_scene load_steps=46 format=3 uid="uid://q6s5nqchhexa"]
+[gd_scene load_steps=33 format=3 uid="uid://q6s5nqchhexa"]
 
 [ext_resource type="Texture2D" uid="uid://cdtbnvypj8jps" path="res://Assets/dino/DinoSprites - doux.png" id="1_51pde"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_huxpf"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_nsxfe"]
-[ext_resource type="PackedScene" uid="uid://dkgqe2gxhghjp" path="res://Scenes/Components/health/health_component.tscn" id="3_w50pa"]
 [ext_resource type="Script" path="res://Scripts/states/idleStopped.gd" id="3_yt5fk"]
-[ext_resource type="PackedScene" uid="uid://k3cvc8n8kgex" path="res://Scenes/Components/hitbox/HitboxComponent.tscn" id="4_3xl53"]
 [ext_resource type="Script" path="res://Scripts/Transition.gd" id="4_17wg8"]
-[ext_resource type="Script" path="res://Scripts/states/InputWalk.gd" id="6_jrbqo"]
-[ext_resource type="Script" path="res://Scripts/states/inputJump.gd" id="7_oiylq"]
-[ext_resource type="Script" path="res://Scripts/states/InputFalling.gd" id="8_p03pf"]
-[ext_resource type="Script" path="res://Scripts/states/InputAttack.gd" id="9_wrxx6"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vvae"]
-atlas = ExtResource("1_51pde")
-region = Rect2(240, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ji2hp"]
-atlas = ExtResource("1_51pde")
-region = Rect2(264, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3thl5"]
-atlas = ExtResource("1_51pde")
-region = Rect2(288, 0, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2l4cq"]
-atlas = ExtResource("1_51pde")
-region = Rect2(192, 0, 24, 24)
+[ext_resource type="Script" path="res://Scripts/states/Inputwalk.gd" id="6_jrbqo"]
+[ext_resource type="Script" path="res://Scripts/states/inputjump.gd" id="7_oiylq"]
+[ext_resource type="Script" path="res://Scripts/states/Inputfalling.gd" id="8_p03pf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7h1ph"]
 atlas = ExtResource("1_51pde")
@@ -40,9 +21,21 @@ region = Rect2(24, 0, 24, 24)
 atlas = ExtResource("1_51pde")
 region = Rect2(48, 0, 24, 24)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sp2u4"]
+atlas = ExtResource("1_51pde")
+region = Rect2(72, 0, 24, 24)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8j3k"]
 atlas = ExtResource("1_51pde")
 region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp0p1"]
+atlas = ExtResource("1_51pde")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2x5n"]
+atlas = ExtResource("1_51pde")
+region = Rect2(120, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1v347"]
 atlas = ExtResource("1_51pde")
@@ -76,31 +69,6 @@ region = Rect2(216, 0, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3vvae")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ji2hp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3thl5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3vvae")
-}],
-"loop": false,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2l4cq")
-}],
-"loop": false,
-"name": &"falling",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_7h1ph")
 }, {
 "duration": 1.0,
@@ -108,14 +76,23 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qq0tc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sp2u4")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e8j3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp0p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2x5n")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1v347")
@@ -148,9 +125,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8nlgj"]
-size = Vector2(16, 17)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j664w"]
 size = Vector2(16, 17)
 
@@ -172,12 +146,6 @@ transition_to = NodePath("../falling")
 true_conditions = Array[StringName]([&"falling"])
 false_conditions = Array[StringName]([&"on_floor"])
 
-[sub_resource type="Resource" id="Resource_anp1q"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../attack")
-true_conditions = Array[StringName]([&"attack"])
-false_conditions = Array[StringName]([])
-
 [sub_resource type="Resource" id="Resource_hon2v"]
 script = ExtResource("4_17wg8")
 transition_to = NodePath("../idle")
@@ -196,22 +164,10 @@ transition_to = NodePath("../falling")
 true_conditions = Array[StringName]([&"falling"])
 false_conditions = Array[StringName]([&"on_floor"])
 
-[sub_resource type="Resource" id="Resource_r8hde"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../attack")
-true_conditions = Array[StringName]([&"attack"])
-false_conditions = Array[StringName]([])
-
 [sub_resource type="Resource" id="Resource_orqc6"]
 script = ExtResource("4_17wg8")
 transition_to = NodePath("../falling")
 true_conditions = Array[StringName]([&"falling"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_nenes"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath(".")
-true_conditions = Array[StringName]([&"can_jump", &"jump"])
 false_conditions = Array[StringName]([])
 
 [sub_resource type="Resource" id="Resource_kh1xj"]
@@ -220,84 +176,15 @@ transition_to = NodePath("../idle")
 true_conditions = Array[StringName]([&"on_floor"])
 false_conditions = Array[StringName]([])
 
-[sub_resource type="Resource" id="Resource_j8n6f"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../jump")
-true_conditions = Array[StringName]([&"can_jump", &"jump"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Animation" id="Animation_idu8y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_rplfj"]
-resource_name = "idle"
-length = 0.8
-loop_mode = 1
-step = 0.333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.333, 0.666),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 1, 2]
-}
-
-[sub_resource type="Animation" id="Animation_0ms84"]
-resource_name = "walk"
-step = 0.333
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxgxt"]
-_data = {
-"RESET": SubResource("Animation_idu8y"),
-"idle": SubResource("Animation_rplfj"),
-"walk": SubResource("Animation_0ms84")
-}
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_huxpf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.07288e-06, -1.19209e-07)
 sprite_frames = SubResource("SpriteFrames_g25j2")
-animation = &"attack"
-
-[node name="HealthComponent" parent="." instance=ExtResource("3_w50pa")]
-show_bar_health = false
-
-[node name="HitboxComponent" parent="." instance=ExtResource("4_3xl53")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_8nlgj")
+animation = &"jump"
+frame = 3
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -309,29 +196,18 @@ script = ExtResource("2_nsxfe")
 [node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("3_yt5fk")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_rgfeh"), SubResource("Resource_471ya"), SubResource("Resource_omiw4"), SubResource("Resource_anp1q")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_rgfeh"), SubResource("Resource_471ya"), SubResource("Resource_omiw4")])
 
 [node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("6_jrbqo")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_hon2v"), SubResource("Resource_i7s65"), SubResource("Resource_dwlk4"), SubResource("Resource_r8hde")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_hon2v"), SubResource("Resource_i7s65"), SubResource("Resource_dwlk4")])
 
 [node name="jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("7_oiylq")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_orqc6"), SubResource("Resource_nenes")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_orqc6")])
 
-[node name="falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
+[node name="falling" type="Node" parent="StateMachine"]
 script = ExtResource("8_p03pf")
-animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_kh1xj"), SubResource("Resource_j8n6f")])
-
-[node name="attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation", "next_state")]
-script = ExtResource("9_wrxx6")
-animation = NodePath("../../AnimatedSprite2D")
-next_state = NodePath("../idle")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_lxgxt")
-}
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_kh1xj")])
