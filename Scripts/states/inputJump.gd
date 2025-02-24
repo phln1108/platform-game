@@ -10,8 +10,8 @@ func enter() -> void:
 	owner.jumpsLeft -= 1
 
 func behave(_delta) -> void:
-	owner.velocity.x = owner.direction * _delta * owner.speed
-	animation.flip_h = owner.direction < 0
+	owner._apply_movement()
+
 
 func exit() -> void:
 	pass

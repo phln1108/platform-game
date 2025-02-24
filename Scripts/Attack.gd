@@ -1,6 +1,7 @@
+extends Resource
 class_name Attack
 
-var attack_damage  : float
-var attack_knocback: float
-var attack_position: float
-var stun_time: int
+@export var attack_damage  : float
+@export var attack_knocback: float
+@export var attack_position: float
+@export var stun_time: int

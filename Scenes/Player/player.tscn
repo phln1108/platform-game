@@ -1,16 +1,16 @@
-[gd_scene load_steps=46 format=3 uid="uid://q6s5nqchhexa"]
+[gd_scene load_steps=47 format=3 uid="uid://q6s5nqchhexa"]
 
 [ext_resource type="Texture2D" uid="uid://cdtbnvypj8jps" path="res://Assets/dino/DinoSprites - doux.png" id="1_51pde"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_huxpf"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_nsxfe"]
-[ext_resource type="PackedScene" uid="uid://dkgqe2gxhghjp" path="res://Scenes/Components/health/health_component.tscn" id="3_w50pa"]
+[ext_resource type="PackedScene" uid="uid://c0h1qyj43cggf" path="res://Scenes/Components/hurtbox/HurtBoxComponent.tscn" id="3_3cuts"]
 [ext_resource type="Script" path="res://Scripts/states/idleStopped.gd" id="3_yt5fk"]
-[ext_resource type="PackedScene" uid="uid://k3cvc8n8kgex" path="res://Scenes/Components/hitbox/HitboxComponent.tscn" id="4_3xl53"]
 [ext_resource type="Script" path="res://Scripts/Transition.gd" id="4_17wg8"]
 [ext_resource type="Script" path="res://Scripts/states/InputWalk.gd" id="6_jrbqo"]
 [ext_resource type="Script" path="res://Scripts/states/inputJump.gd" id="7_oiylq"]
 [ext_resource type="Script" path="res://Scripts/states/InputFalling.gd" id="8_p03pf"]
 [ext_resource type="Script" path="res://Scripts/states/InputAttack.gd" id="9_wrxx6"]
+[ext_resource type="Script" path="res://Scenes/Player/attackArea.gd" id="13_hmy1l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vvae"]
 atlas = ExtResource("1_51pde")
@@ -148,11 +148,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8nlgj"]
-size = Vector2(16, 17)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j664w"]
-size = Vector2(16, 17)
+size = Vector2(8, 16)
 
 [sub_resource type="Resource" id="Resource_rgfeh"]
 script = ExtResource("4_17wg8")
@@ -226,19 +223,59 @@ transition_to = NodePath("../jump")
 true_conditions = Array[StringName]([&"can_jump", &"jump"])
 false_conditions = Array[StringName]([])
 
-[sub_resource type="Animation" id="Animation_idu8y"]
+[sub_resource type="Animation" id="Animation_rps3u"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/path = NodePath("HurtBoxComponent/attack:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ad5ht"]
+resource_name = "attack"
+step = 0.333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333, 0.666, 0.999),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtBoxComponent/attack:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.333333, 0.666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_rplfj"]
@@ -277,30 +314,25 @@ step = 0.333
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lxgxt"]
 _data = {
-"RESET": SubResource("Animation_idu8y"),
+"RESET": SubResource("Animation_rps3u"),
+"attack": SubResource("Animation_ad5ht"),
 "idle": SubResource("Animation_rplfj"),
 "walk": SubResource("Animation_0ms84")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsb0n"]
+size = Vector2(16, 8)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_huxpf")
+jumps = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.07288e-06, -1.19209e-07)
 sprite_frames = SubResource("SpriteFrames_g25j2")
-animation = &"attack"
-
-[node name="HealthComponent" parent="." instance=ExtResource("3_w50pa")]
-show_bar_health = false
-
-[node name="HitboxComponent" parent="." instance=ExtResource("4_3xl53")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_8nlgj")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_j664w")
 
 [node name="StateMachine" type="Node" parent="."]
@@ -328,10 +360,22 @@ transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_kh1xj"), SubR
 
 [node name="attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation", "next_state")]
 script = ExtResource("9_wrxx6")
-animation = NodePath("../../AnimatedSprite2D")
+animation = NodePath("../../AnimationPlayer")
 next_state = NodePath("../idle")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_lxgxt")
 }
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("3_3cuts")]
+position = Vector2(0, 4)
+
+[node name="attack" type="CollisionShape2D" parent="HurtBoxComponent"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_hsb0n")
+disabled = true
+script = ExtResource("13_hmy1l")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 11)

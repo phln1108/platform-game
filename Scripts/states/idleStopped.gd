@@ -7,11 +7,11 @@ extends State
 
 func enter() -> void:
 	animation.play("idle")
-	owner.velocity.x = 0
+	#owner.velocity.x = 0
 	pass
 
 func behave(_delta) -> void:
-	pass
+	owner._apply_friction()
 
 func exit() -> void:
 	pass

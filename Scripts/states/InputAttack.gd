@@ -1,6 +1,6 @@
 extends State
 
-@export var animation: AnimatedSprite2D
+@export var animation: AnimationPlayer
 
 @export var next_state: State
 
@@ -15,7 +15,7 @@ func behave(_delta) -> void:
 func exit() -> void:
 	pass
 
-func _on_attack_finished() -> void:
+func _on_attack_finished(finished: StringName) -> void:
 	get_parent().change_state(self,next_state)
 	animation.animation_finished.disconnect(_on_attack_finished)
 	
