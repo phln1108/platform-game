@@ -46,12 +46,13 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	handle_slide_object()
+	handle_auto_jump()
 	
 	if raycast.is_colliding():
 		var opa = raycast.get_collider()
 		
 		if opa is RigidBody2D:
-			print(opa.physics_material_override.friction)
+			#print(opa.physics_material_override.friction)
 			floor_friction = opa.physics_material_override.friction
 		elif opa is TileMapLayer:
 			var local_position = opa.to_local(raycast.get_collision_point())
@@ -71,20 +72,31 @@ func _physics_process(delta: float) -> void:
 				return
 		
 			floor_friction = tile_friction
-			print(tile_friction)
+			#print(tile_friction)
 		else:
 			floor_friction = 1
-				
-
 
 func _apply_movement() -> void:
 	#velocity.x = direction * delta * speed
 	velocity = velocity.move_toward(Vector2(speed * direction, velocity.y),acceleration * floor_friction)
 	if direction != 0:
 		animation.flip_h = direction < 0
+		
+	handle_auto_jump()
+
 
 func _apply_friction() -> void:
 	velocity = velocity.move_toward(Vector2.ZERO, acceleration * floor_friction)
+	handle_auto_jump()
+	
+	
+func handle_auto_jump() -> void:
+	if direction:
+		%TopCheck.target_position.x = abs(%TopCheck.target_position.x) * direction
+		%StairCheck.target_position.x = abs(%StairCheck.target_position.x) * direction
+		if velocity.y >= 0.0:
+			$AutoClimb.disabled = %TopCheck.is_colliding() or not %StairCheck.is_colliding() 
+		
 
 func handle_slide_object() -> void:
 	for i in get_slide_collision_count():
