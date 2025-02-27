@@ -1,7 +1,7 @@
 extends Area2D
 class_name HurtBoxComponent
 
-signal damage
+#signal damage
 
 @export var attack: Attack
 

@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var animation := $AnimatedSprite2D
 @onready var raycast := $RayCast2D
 
-@export var speed: int = 50.0
+@export var speed: float = 50.0
 @export var acceleration := 10.0
 @export var jumpStrenth := 200
 @export var jumps := 1
@@ -19,7 +19,7 @@ var jumpsLeft := jumps
 
 var direction: int = 0 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	state_machine.change_condition("falling", velocity.y > 0)
 	state_machine.change_condition("on_floor", is_on_floor())
 	

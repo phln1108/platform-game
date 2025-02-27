@@ -15,7 +15,7 @@ func behave(_delta) -> void:
 func exit() -> void:
 	pass
 
-func _on_attack_finished(finished: StringName) -> void:
+func _on_attack_finished(_finished: StringName) -> void:
 	get_parent().change_state(self,next_state)
 	animation.animation_finished.disconnect(_on_attack_finished)
 	

@@ -1,6 +1,6 @@
 [gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://uasokhw5bvas"]
 
-[ext_resource type="Texture2D" uid="uid://io0e8pmo1x7" path="res://Assets/Whimsy_Hallow_Dungeon_Asset_Pack_V1.62/Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.png" id="1_jcn3w"]
+[ext_resource type="Texture2D" uid="uid://io0e8pmo1x7" path="res://Assets/TileSets/Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.png" id="1_jcn3w"]
 
 [resource]
 atlas = ExtResource("1_jcn3w")

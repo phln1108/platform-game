@@ -40,6 +40,8 @@ animations = [{
 }]
 
 [node name="SmallLatern" instance=ExtResource("1_gll5v")]
+max_energy = 1.0
+min_energy = 0.6
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_dthwp")
