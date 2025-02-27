@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var raycast := $RayCast2D
 
 @export var speed: float = 50.0
-@export var acceleration := 10.0
+var acceleration := speed / 2 
 @export var jumpStrenth := 200
 @export var jumps := 1
 @export var PUSH_FORCE := 15.0
