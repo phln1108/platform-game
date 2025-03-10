@@ -14,14 +14,14 @@ var acceleration := speed / 2
 
 var jumpsLeft := jumps
 
-
-
-
 var direction: int = 0 
 
 func _process(_delta: float) -> void:
 	state_machine.change_condition("falling", velocity.y > 0)
 	state_machine.change_condition("on_floor", is_on_floor())
+	
+	var down := Input.get_action_strength("down")
+	state_machine.change_condition("down",down)
 	
 	var can_jump := jumpsLeft > 0
 	state_machine.change_condition("can_jump", can_jump)

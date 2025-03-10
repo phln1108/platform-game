@@ -1,15 +1,18 @@
-[gd_scene load_steps=48 format=3 uid="uid://q6s5nqchhexa"]
+[gd_scene load_steps=67 format=3 uid="uid://q6s5nqchhexa"]
 
 [ext_resource type="Texture2D" uid="uid://cdtbnvypj8jps" path="res://Assets/dino/DinoSprites - doux.png" id="1_51pde"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_huxpf"]
 [ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_nsxfe"]
 [ext_resource type="PackedScene" uid="uid://c0h1qyj43cggf" path="res://Scenes/Components/hurtbox/HurtBoxComponent.tscn" id="3_3cuts"]
-[ext_resource type="Script" path="res://Scripts/states/idleStopped.gd" id="3_yt5fk"]
+[ext_resource type="Texture2D" uid="uid://d4nfyph4otcl7" path="res://Assets/dino/Dino crouch idle - doux .png" id="3_pmi8i"]
+[ext_resource type="Script" path="res://Scenes/Player/states/idleStopped.gd" id="3_yt5fk"]
 [ext_resource type="Script" path="res://Scripts/Transition.gd" id="4_17wg8"]
-[ext_resource type="Script" path="res://Scripts/states/InputWalk.gd" id="6_jrbqo"]
-[ext_resource type="Script" path="res://Scripts/states/inputJump.gd" id="7_oiylq"]
-[ext_resource type="Script" path="res://Scripts/states/InputFalling.gd" id="8_p03pf"]
-[ext_resource type="Script" path="res://Scripts/states/InputAttack.gd" id="9_wrxx6"]
+[ext_resource type="Script" path="res://Scenes/Player/states/InputWalk.gd" id="6_jrbqo"]
+[ext_resource type="Script" path="res://Scenes/Player/states/inputJump.gd" id="7_oiylq"]
+[ext_resource type="Script" path="res://Scenes/Player/states/InputFalling.gd" id="8_p03pf"]
+[ext_resource type="Script" path="res://Scenes/Player/states/InputAttack.gd" id="9_wrxx6"]
+[ext_resource type="Script" path="res://Scenes/Player/states/crouch_idle.gd" id="11_fldad"]
+[ext_resource type="Script" path="res://Scenes/Player/states/crouching_walk.gd" id="12_jhp17"]
 [ext_resource type="Script" path="res://Scenes/Player/attackArea.gd" id="13_hmy1l"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vvae"]
@@ -23,6 +26,42 @@ region = Rect2(264, 0, 24, 24)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3thl5"]
 atlas = ExtResource("1_51pde")
 region = Rect2(288, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0lov"]
+atlas = ExtResource("3_pmi8i")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsh3p"]
+atlas = ExtResource("3_pmi8i")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw037"]
+atlas = ExtResource("3_pmi8i")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_baho1"]
+atlas = ExtResource("1_51pde")
+region = Rect2(432, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p1ji"]
+atlas = ExtResource("1_51pde")
+region = Rect2(456, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xioqv"]
+atlas = ExtResource("1_51pde")
+region = Rect2(480, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka5cq"]
+atlas = ExtResource("1_51pde")
+region = Rect2(504, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7i2nr"]
+atlas = ExtResource("1_51pde")
+region = Rect2(528, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qau4k"]
+atlas = ExtResource("1_51pde")
+region = Rect2(552, 0, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2l4cq"]
 atlas = ExtResource("1_51pde")
@@ -93,6 +132,43 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_u0lov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsh3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw037")
+}],
+"loop": true,
+"name": &"crouch_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_baho1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p1ji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xioqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ka5cq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7i2nr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qau4k")
+}],
+"loop": true,
+"name": &"crouch_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2l4cq")
 }],
 "loop": false,
@@ -150,78 +226,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j664w"]
 size = Vector2(8, 16)
-
-[sub_resource type="Resource" id="Resource_rgfeh"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../walk")
-true_conditions = Array[StringName]([&"is_moving"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_471ya"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../jump")
-true_conditions = Array[StringName]([&"jump", &"on_floor"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_omiw4"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../falling")
-true_conditions = Array[StringName]([&"falling"])
-false_conditions = Array[StringName]([&"on_floor"])
-
-[sub_resource type="Resource" id="Resource_anp1q"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../attack")
-true_conditions = Array[StringName]([&"attack"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_hon2v"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../idle")
-true_conditions = Array[StringName]([])
-false_conditions = Array[StringName]([&"is_moving"])
-
-[sub_resource type="Resource" id="Resource_i7s65"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../jump")
-true_conditions = Array[StringName]([&"jump", &"on_floor"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_dwlk4"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../falling")
-true_conditions = Array[StringName]([&"falling"])
-false_conditions = Array[StringName]([&"on_floor"])
-
-[sub_resource type="Resource" id="Resource_r8hde"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../attack")
-true_conditions = Array[StringName]([&"attack"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_orqc6"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../falling")
-true_conditions = Array[StringName]([&"falling"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_nenes"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath(".")
-true_conditions = Array[StringName]([&"can_jump", &"jump"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_kh1xj"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../idle")
-true_conditions = Array[StringName]([&"on_floor"])
-false_conditions = Array[StringName]([])
-
-[sub_resource type="Resource" id="Resource_j8n6f"]
-script = ExtResource("4_17wg8")
-transition_to = NodePath("../jump")
-true_conditions = Array[StringName]([&"can_jump", &"jump"])
-false_conditions = Array[StringName]([])
 
 [sub_resource type="Animation" id="Animation_rps3u"]
 length = 0.001
@@ -321,6 +325,120 @@ _data = {
 "walk": SubResource("Animation_0ms84")
 }
 
+[sub_resource type="Resource" id="Resource_rgfeh"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../walk")
+true_conditions = Array[StringName]([&"is_moving"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_471ya"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../jump")
+true_conditions = Array[StringName]([&"jump", &"on_floor"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_omiw4"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../falling")
+true_conditions = Array[StringName]([&"falling"])
+false_conditions = Array[StringName]([&"on_floor"])
+
+[sub_resource type="Resource" id="Resource_anp1q"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../attack")
+true_conditions = Array[StringName]([&"attack"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_ncxqi"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../crouch_idle")
+true_conditions = Array[StringName]([&"down"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_hon2v"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../idle")
+true_conditions = Array[StringName]([])
+false_conditions = Array[StringName]([&"is_moving"])
+
+[sub_resource type="Resource" id="Resource_i7s65"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../jump")
+true_conditions = Array[StringName]([&"jump", &"on_floor"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_dwlk4"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../falling")
+true_conditions = Array[StringName]([&"falling"])
+false_conditions = Array[StringName]([&"on_floor"])
+
+[sub_resource type="Resource" id="Resource_r8hde"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../attack")
+true_conditions = Array[StringName]([&"attack"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_x3j03"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../crouching_walk")
+true_conditions = Array[StringName]([&"down"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_orqc6"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../falling")
+true_conditions = Array[StringName]([&"falling"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_nenes"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath(".")
+true_conditions = Array[StringName]([&"can_jump", &"jump"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_kh1xj"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../idle")
+true_conditions = Array[StringName]([&"on_floor"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_j8n6f"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../jump")
+true_conditions = Array[StringName]([&"can_jump", &"jump"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_yokfi"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../idle")
+true_conditions = Array[StringName]([])
+false_conditions = Array[StringName]([&"down"])
+
+[sub_resource type="Resource" id="Resource_4h1hg"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../crouching_walk")
+true_conditions = Array[StringName]([&"is_moving", &"down"])
+false_conditions = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_45jwj"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../crouch_idle")
+true_conditions = Array[StringName]([&"down"])
+false_conditions = Array[StringName]([&"is_moving"])
+
+[sub_resource type="Resource" id="Resource_5ynmk"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../idle")
+true_conditions = Array[StringName]([])
+false_conditions = Array[StringName]([&"is_moving", &"down"])
+
+[sub_resource type="Resource" id="Resource_srg27"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../walk")
+true_conditions = Array[StringName]([&"is_moving"])
+false_conditions = Array[StringName]([&"down"])
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hsb0n"]
 size = Vector2(16, 8)
 
@@ -329,15 +447,18 @@ length = 10.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_huxpf")
-jumps = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1.07288e-06, -1.19209e-07)
 sprite_frames = SubResource("SpriteFrames_g25j2")
-animation = &"attack"
+animation = &"crouch_idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_j664w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lxgxt")
+}
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_nsxfe")
@@ -345,12 +466,12 @@ script = ExtResource("2_nsxfe")
 [node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("3_yt5fk")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_rgfeh"), SubResource("Resource_471ya"), SubResource("Resource_omiw4"), SubResource("Resource_anp1q")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_rgfeh"), SubResource("Resource_471ya"), SubResource("Resource_omiw4"), SubResource("Resource_anp1q"), SubResource("Resource_ncxqi")])
 
 [node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("6_jrbqo")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_hon2v"), SubResource("Resource_i7s65"), SubResource("Resource_dwlk4"), SubResource("Resource_r8hde")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_hon2v"), SubResource("Resource_i7s65"), SubResource("Resource_dwlk4"), SubResource("Resource_r8hde"), SubResource("Resource_x3j03")])
 
 [node name="jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("7_oiylq")
@@ -367,10 +488,15 @@ script = ExtResource("9_wrxx6")
 animation = NodePath("../../AnimationPlayer")
 next_state = NodePath("../idle")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_lxgxt")
-}
+[node name="crouch_idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
+script = ExtResource("11_fldad")
+animation = NodePath("../../AnimatedSprite2D")
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_yokfi"), SubResource("Resource_4h1hg"), SubResource("Resource_anp1q"), SubResource("Resource_dwlk4")])
+
+[node name="crouching_walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
+script = ExtResource("12_jhp17")
+animation = NodePath("../../AnimatedSprite2D")
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_45jwj"), SubResource("Resource_5ynmk"), SubResource("Resource_srg27"), SubResource("Resource_anp1q"), SubResource("Resource_dwlk4")])
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("3_3cuts")]
 position = Vector2(0, 4)

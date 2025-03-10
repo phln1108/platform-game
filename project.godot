@@ -22,9 +22,7 @@ BusSignal="*res://Scripts/singletons/BusSignal.gd"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
 
 [editor_plugins]
 

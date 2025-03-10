@@ -61,7 +61,7 @@ func change_condition(key:String, value: bool) -> void:
 
 func change_state(oldState: State, newState: State) -> void:
 	if oldState == _currentState:
-		print(oldState.name," ",newState.name)
+		#print(oldState.name," ",newState.name)
 		
 		_currentState.exit()
 		
