@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 BusSignal="*res://Scripts/singletons/BusSignal.gd"
 
 [display]
@@ -25,10 +24,6 @@ BusSignal="*res://Scripts/singletons/BusSignal.gd"
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/size/mode=2
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [input]
 
