@@ -9,7 +9,7 @@ func enter() -> void:
 	$Timer.timeout.connect(on_timeout)
 
 func behave(_delta) -> void:
-	pass
+	owner._apply_friction()
 
 func exit() -> void:
 	$Timer.stop()

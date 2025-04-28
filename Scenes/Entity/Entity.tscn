@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://mq0qf34k38jq"]
+[gd_scene load_steps=7 format=3 uid="uid://mq0qf34k38jq"]
 
-[ext_resource type="Script" path="res://Scenes/Entity/Entity.gd" id="1_fjrmj"]
-[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="1_yc5xv"]
+[ext_resource type="Script" uid="uid://bqm1oix63cx8v" path="res://Scenes/Entity/Entity.gd" id="1_fjrmj"]
+[ext_resource type="Script" uid="uid://cp5l3yucjd41l" path="res://Scripts/state_machine.gd" id="1_yc5xv"]
+[ext_resource type="Script" uid="uid://bjwspv3bv0186" path="res://Scenes/Enemies/thief/states/hurt.gd" id="3_xdusj"]
+[ext_resource type="Script" uid="uid://dne36c4uvyps4" path="res://Scenes/Enemies/thief/states/die.gd" id="4_k62jm"]
+[ext_resource type="Script" uid="uid://cbducx4gxch1n" path="res://Scenes/Components/health/health_component.gd" id="5_v3foa"]
+[ext_resource type="Script" uid="uid://b5wqq2wr2v4n5" path="res://Scenes/Components/hitbox/HitboxComponent.gd" id="6_v0t7p"]
 
 [node name="Entity" type="CharacterBody2D"]
 script = ExtResource("1_fjrmj")
@@ -14,3 +18,24 @@ script = ExtResource("1_fjrmj")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("1_yc5xv")
+
+[node name="hurt" type="Node" parent="StateMachine"]
+script = ExtResource("3_xdusj")
+
+[node name="die" type="Node" parent="StateMachine"]
+script = ExtResource("4_k62jm")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("5_v3foa")
+MAX_HEALTH = 5.0
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("6_v0t7p")
+health_component = NodePath("../HealthComponent")
+
+[node name="GroundDetector" type="RayCast2D" parent="."]
+position = Vector2(2, 8)
+target_position = Vector2(0, 12)
+
+[connection signal="die" from="HealthComponent" to="." method="_on_health_component_die"]
+[connection signal="hurt" from="HealthComponent" to="." method="_on_health_component_hurt"]

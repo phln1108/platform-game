@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="PlataformGame"
-run/main_scene="res://Scenes/Maps/Map1/Map1.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="uid://dbl3pwxrj5xuw"
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -22,7 +22,9 @@ BusSignal="*res://Scripts/singletons/BusSignal.gd"
 
 [display]
 
-window/stretch/mode="viewport"
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/mode=2
 
 [editor_plugins]
 

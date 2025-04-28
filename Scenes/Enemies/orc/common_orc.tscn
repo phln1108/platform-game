@@ -2,12 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://c6bjs8uciv4i0" path="res://Assets/enemies/Orc/Orc/Orc-Attack01.png" id="1_oct5t"]
 [ext_resource type="Texture2D" uid="uid://cbegegm6no5h2" path="res://Assets/enemies/Orc/Orc/Orc.png" id="1_tsnad"]
-[ext_resource type="Script" path="res://Scripts/state_machine.gd" id="2_7o376"]
+[ext_resource type="Script" uid="uid://cp5l3yucjd41l" path="res://Scripts/state_machine.gd" id="2_7o376"]
 [ext_resource type="Texture2D" uid="uid://41yadxsongsn" path="res://Assets/enemies/Orc/Orc/Orc-Death.png" id="2_iqvob"]
 [ext_resource type="Texture2D" uid="uid://c4j1t4r6u4raa" path="res://Assets/enemies/Orc/Orc/Orc-Hurt.png" id="3_e6tmo"]
 [ext_resource type="Texture2D" uid="uid://bxevl7f3tsest" path="res://Assets/enemies/Orc/Orc/Orc-Idle.png" id="4_twroi"]
-[ext_resource type="Script" path="res://Scenes/Enemies/orc/states/idle.gd" id="7_22ifb"]
-[ext_resource type="Script" path="res://Scenes/Enemies/orc/states/walk.gd" id="8_7lepo"]
+[ext_resource type="Script" uid="uid://5tmaewweap02" path="res://Scenes/Enemies/orc/states/idle.gd" id="7_22ifb"]
+[ext_resource type="Script" uid="uid://vbbr6kcwxo4t" path="res://Scenes/Enemies/orc/states/walk.gd" id="8_7lepo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y84xc"]
 atlas = ExtResource("1_oct5t")

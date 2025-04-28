@@ -3,7 +3,6 @@ class_name Entity
 
 @onready var state_machine: StateMachine = $StateMachine
 @onready var animation := $Animation
-@export  var GroundDetector: RayCast2D
 
 @export var speed: float = 50.0
 var acceleration := speed / 2 
@@ -14,6 +13,8 @@ var acceleration := speed / 2
 @export var jumpStrenth := 200
 @export var jumps := 1
 
+var dead: bool = false
+
 var direction: int = 0 
 
 func _process(delta: float) -> void:
@@ -21,20 +22,20 @@ func _process(delta: float) -> void:
 	state_machine._check_state_change()
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
+	if not is_on_floor() and not dead:
 		velocity += get_gravity() * delta
 	
 	move_and_slide()
 	handle_slide_object()
 	
-	if GroundDetector.is_colliding():
-		var ground = GroundDetector.get_collider()
+	if $GroundDetector.is_colliding():
+		var ground = $GroundDetector.get_collider()
 		
 		if ground is RigidBody2D:
 			#print(ground.physics_material_override.friction)
 			floor_friction = ground.physics_material_override.friction
 		elif ground is TileMapLayer:
-			var local_position = ground.to_local(GroundDetector.get_collision_point())
+			var local_position = ground.to_local($GroundDetector.get_collision_point())
 			var tile_coords = ground.local_to_map(local_position)
 			if not tile_coords:
 				floor_friction = 1
@@ -62,7 +63,7 @@ func _apply_movement() -> void:
 		animation.flip_h = direction < 0
 
 func _apply_friction() -> void:
-	velocity = velocity.move_toward(Vector2.ZERO, acceleration * floor_friction)
+	velocity.x = velocity.move_toward(Vector2.ZERO, acceleration * floor_friction).x
 
 func handle_slide_object() -> void:
 	for i in get_slide_collision_count():
@@ -73,9 +74,20 @@ func handle_slide_object() -> void:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
 ## Used as physics_process function, to prevent override
-func _on_physics_process(delta: float) -> void:
+func _on_physics_process(_delta: float) -> void:
 	pass
 
 ## Used as _process function, to prevent override
 func _on_process(_delta: float) -> void:
 	pass
+
+func _on_health_component_hurt(attack: Attack) -> void:
+	state_machine.force_change_state($StateMachine/hurt)
+	var impulse_direction = 1 if global_position.x - attack.attack_position.x > 0 else -1 
+	velocity = Vector2(attack.attack_knocback.x * impulse_direction, - attack.attack_knocback.y)
+
+func _on_health_component_die() -> void:
+	dead = true
+	$HitboxComponent.monitorable = false
+	$Collision.set_deferred("disabled", true)
+	state_machine.force_change_state($StateMachine/die)

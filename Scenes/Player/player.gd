@@ -1,10 +1,11 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var state_machine: StateMachine = $StateMachine
 @onready var animation := $AnimatedSprite2D
 @onready var raycast := $RayCast2D
 
-@export var speed: float = 50.0
+@export var speed: float = 30.0
 var acceleration := speed / 2 
 @export var jumpStrenth := 200
 @export var jumps := 1
@@ -45,6 +46,7 @@ func _physics_process(delta: float) -> void:
 		jumpsLeft = jumps
 	
 	move_and_slide()
+	#animation.position = (position - position.round()) * -1.0d
 	handle_slide_object()
 	handle_auto_jump()
 	
@@ -83,7 +85,7 @@ func _apply_movement() -> void:
 		animation.flip_h = direction < 0
 
 func _apply_friction() -> void:
-	velocity = velocity.move_toward(Vector2.ZERO, acceleration * floor_friction)
+	velocity.x = velocity.move_toward(Vector2.ZERO, acceleration * floor_friction).x
 
 func handle_auto_jump() -> void:
 	if direction:
@@ -99,4 +101,11 @@ func handle_slide_object() -> void:
 			#print("Collided with: ", c.get_collider())
 			var push_force := (PUSH_FORCE * velocity.length() / speed) + MIN_PUSH_FORCE
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
-			
+
+func _on_health_component_hurt(attack: Attack) -> void:
+	state_machine.force_change_state($StateMachine/hurt)
+	var impulse_direction = 1 if global_position.x - attack.attack_position.x > 0 else -1 
+	velocity = Vector2(attack.attack_knocback.x * impulse_direction, - attack.attack_knocback.y)
+
+func _on_health_component_die() -> void:
+	state_machine.force_change_state($StateMachine/die)

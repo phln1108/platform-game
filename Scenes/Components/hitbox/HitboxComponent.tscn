@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://k3cvc8n8kgex"]
 
-[ext_resource type="Script" path="res://Scenes/Components/hitbox/hitbox_component.gd" id="1_idrgq"]
+[ext_resource type="Script" uid="uid://bs5oue6y56clt" path="res://Scenes/Components/hitbox/hitbox_component.gd" id="1_idrgq"]
 
 [node name="HitboxComponent" type="Area2D"]
 monitoring = false

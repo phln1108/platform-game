@@ -69,6 +69,13 @@ func change_state(oldState: State, newState: State) -> void:
 		
 		_currentState.enter()
 
+func force_change_state(newState: State) -> void:
+	_currentState.exit()
+	
+	_currentState = newState
+	
+	_currentState.enter()
+
 # /////////////////////////////////////////////////////////////////////////////
 
 func _ready() -> void:
@@ -76,8 +83,8 @@ func _ready() -> void:
 	
 	#can_process = true
 
-
 func _process(delta: float) -> void:
 	if is_node_ready():
 		#print(_conditions)
 		_currentState.behave(delta)
+		

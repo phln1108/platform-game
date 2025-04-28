@@ -8,7 +8,7 @@ func enter() -> void:
 	animation.animation_finished.connect(on_animation_finished)
 
 func behave(_delta) -> void:
-	pass
+	owner._apply_friction()
 
 func exit() -> void:
 	animation.stop()

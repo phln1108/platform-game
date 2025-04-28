@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://goq7niy3y33c"]
 
-[ext_resource type="Script" path="res://Scenes/LightSources/autoPlay.gd" id="1_qx781"]
+[ext_resource type="Script" uid="uid://cxe1ymwn7vfaj" path="res://Scenes/LightSources/autoPlay.gd" id="1_qx781"]
 [ext_resource type="Texture2D" uid="uid://cv81q4yj70c7g" path="res://Scenes/LightSources/LightSource.tres" id="2_87wng"]
 
 [sub_resource type="Animation" id="Animation_t16i6"]
@@ -86,8 +86,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_41awx"]
 _data = {
-"RESET": SubResource("Animation_t16i6"),
-"glow": SubResource("Animation_x3733")
+&"RESET": SubResource("Animation_t16i6"),
+&"glow": SubResource("Animation_x3733")
 }
 
 [node name="LightSource" type="Node2D"]
