@@ -16,6 +16,7 @@ func exit() -> void:
 
 func animation_ended() -> void:
 	animation.animation_finished.disconnect(animation_ended)
+	animation.global_position = animation.global_position.round() 
 	if die_queue_free:
 		owner.queue_free()
 	

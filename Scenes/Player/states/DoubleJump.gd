@@ -2,10 +2,9 @@ extends State
 
 @export var animation: AnimatedSprite2D
 
-#var player = get_parent().get_parent()
-
 func enter() -> void:
 	animation.play("jump")
+	owner.jumps -= 1
 	owner.velocity.y = -owner.jumpStrenth
 
 func behave(_delta) -> void:

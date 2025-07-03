@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dbl3pwxrj5xuw"]
+[gd_scene load_steps=25 format=4 uid="uid://dbl3pwxrj5xuw"]
 
 [ext_resource type="Texture2D" uid="uid://ccc3hm84f05x4" path="res://Assets/TileSets/Terrain (32x32).png" id="1_d4bgj"]
 [ext_resource type="PackedScene" uid="uid://ct2pxbcme5fnt" path="res://Scenes/Stairs/RightStair.tscn" id="2_ckhjg"]
@@ -12,7 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bd2lheo6jq8kg" path="res://Scenes/LightSources/Window.tscn" id="9_3puvr"]
 [ext_resource type="Script" uid="uid://cp3qyn4u6bavv" path="res://Scripts/camera_2d.gd" id="12_0pyv8"]
 [ext_resource type="Script" uid="uid://cto7v7y2kvjyg" path="res://Scripts/follow_node.gd" id="12_0ufsv"]
+[ext_resource type="Texture2D" uid="uid://c8ev2mnfiawh6" path="res://icon.svg" id="14_swqgr"]
 [ext_resource type="PackedScene" uid="uid://di4ckx0cc8lmd" path="res://Scenes/Enemies/thief/thief.tscn" id="14_yeknm"]
+[ext_resource type="PackedScene" uid="uid://k50timea27ck" path="res://Scenes/dropped_key.tscn" id="15_1tjsp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g82td"]
 texture = ExtResource("1_d4bgj")
@@ -988,9 +990,9 @@ sources/2 = SubResource("TileSetAtlasSource_itiby")
 
 [sub_resource type="Curve2D" id="Curve2D_aakxs"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 38, 138, 0, 0, 0, 0, 223, 127, 0, 0, 0, 0, 399, 62, 0, 0, 0, 0, 764, 55, 0, 0, 0, 0, 848, 72, 0, 0, 0, 0, 1230, 72, 0, 0, 0, 0, 1303, 32, 0, 0, 0, 0, 1478, 76)
+"points": PackedVector2Array(0, 0, 0, 0, 38, 138, 0, 0, 0, 0, 223, 127, 0, 0, 0, 0, 399, 95, 0, 0, 0, 0, 765, 70, 0, 0, 0, 0, 848, 72, 0, 0, 0, 0, 1230, 72, 0, 0, 0, 0, 1312, 48, 0, 0, 0, 0, 1437.93, 59.1424, 0, 0, 0, 0, 1505, 60)
 }
-point_count = 8
+point_count = 9
 
 [node name="Map1" type="Node2D"]
 
@@ -1101,12 +1103,13 @@ position = Vector2(905, 106)
 position = Vector2(1162, 105)
 
 [node name="Player" parent="." instance=ExtResource("2_lmm7s")]
-position = Vector2(1316, 39)
+position = Vector2(50, 171)
 speed = 60.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" node_paths=PackedStringArray("path")]
 enabled = false
 zoom = Vector2(4, 4)
+process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 script = ExtResource("12_0pyv8")
@@ -1126,7 +1129,25 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
 
+[node name="Sprite2D" type="Sprite2D" parent="followNode"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("14_swqgr")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="followNode"]
+visible = false
+offset_left = -34.0
+offset_top = -22.0
+offset_right = 36.0
+offset_bottom = 1.0
+text = "111.111"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 color = Color(0.194349, 0.194349, 0.194349, 1)
 energy = 0.7
 blend_mode = 1
+
+[node name="DroppedKey" parent="." instance=ExtResource("15_1tjsp")]
+position = Vector2(1623, 53)

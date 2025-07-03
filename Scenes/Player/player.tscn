@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://q6s5nqchhexa"]
+[gd_scene load_steps=89 format=3 uid="uid://q6s5nqchhexa"]
 
 [ext_resource type="Texture2D" uid="uid://cdtbnvypj8jps" path="res://Assets/dino/DinoSprites - doux.png" id="1_51pde"]
 [ext_resource type="Script" uid="uid://c866ls0gxusbj" path="res://Scenes/Player/player.gd" id="1_huxpf"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://ef1mo7278dsm" path="res://Scripts/Attack.gd" id="14_50dpv"]
 [ext_resource type="Script" uid="uid://dne36c4uvyps4" path="res://Scenes/Enemies/thief/states/die.gd" id="14_siapv"]
 [ext_resource type="Script" uid="uid://b5wqq2wr2v4n5" path="res://Scenes/Components/hitbox/HitboxComponent.gd" id="15_ltqby"]
+[ext_resource type="Script" uid="uid://q8v5d8nmo840" path="res://Scenes/Player/states/DoubleJump.gd" id="16_h8ma5"]
 [ext_resource type="Script" uid="uid://cbducx4gxch1n" path="res://Scenes/Components/health/health_component.gd" id="18_kumr5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3vvae"]
@@ -542,11 +543,26 @@ transition_to = NodePath("../falling")
 true_conditions = Array[StringName]([&"falling"])
 false_conditions = Array[StringName]([])
 
-[sub_resource type="Resource" id="Resource_nenes"]
+[sub_resource type="Resource" id="Resource_jincj"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../double_jump")
+true_conditions = Array[StringName]([&"can_jump", &"jump"])
+false_conditions = Array[StringName]([])
+metadata/_custom_type_script = "uid://dh1boaylhg5m5"
+
+[sub_resource type="Resource" id="Resource_h8ma5"]
+script = ExtResource("4_17wg8")
+transition_to = NodePath("../falling")
+true_conditions = Array[StringName]([&"falling"])
+false_conditions = Array[StringName]([])
+metadata/_custom_type_script = "uid://dh1boaylhg5m5"
+
+[sub_resource type="Resource" id="Resource_eksi1"]
 script = ExtResource("4_17wg8")
 transition_to = NodePath(".")
 true_conditions = Array[StringName]([&"can_jump", &"jump"])
 false_conditions = Array[StringName]([])
+metadata/_custom_type_script = "uid://dh1boaylhg5m5"
 
 [sub_resource type="Resource" id="Resource_kh1xj"]
 script = ExtResource("4_17wg8")
@@ -554,11 +570,12 @@ transition_to = NodePath("../idle")
 true_conditions = Array[StringName]([&"on_floor"])
 false_conditions = Array[StringName]([])
 
-[sub_resource type="Resource" id="Resource_j8n6f"]
+[sub_resource type="Resource" id="Resource_rqdc0"]
 script = ExtResource("4_17wg8")
-transition_to = NodePath("../jump")
+transition_to = NodePath("../double_jump")
 true_conditions = Array[StringName]([&"can_jump", &"jump"])
 false_conditions = Array[StringName]([])
+metadata/_custom_type_script = "uid://dh1boaylhg5m5"
 
 [sub_resource type="Resource" id="Resource_yokfi"]
 script = ExtResource("4_17wg8")
@@ -608,6 +625,7 @@ size = Vector2(8, 16)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_huxpf")
+jumps = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_g25j2")
@@ -638,12 +656,17 @@ transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_hon2v"), SubR
 [node name="jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("7_oiylq")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_orqc6"), SubResource("Resource_nenes")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_orqc6"), SubResource("Resource_jincj")])
+
+[node name="double_jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
+script = ExtResource("16_h8ma5")
+animation = NodePath("../../AnimatedSprite2D")
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_h8ma5"), SubResource("Resource_eksi1")])
 
 [node name="falling" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation")]
 script = ExtResource("8_p03pf")
 animation = NodePath("../../AnimatedSprite2D")
-transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_kh1xj"), SubResource("Resource_j8n6f")])
+transitions = Array[ExtResource("4_17wg8")]([SubResource("Resource_kh1xj"), SubResource("Resource_rqdc0")])
 
 [node name="attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("animation", "next_state")]
 script = ExtResource("9_wrxx6")
